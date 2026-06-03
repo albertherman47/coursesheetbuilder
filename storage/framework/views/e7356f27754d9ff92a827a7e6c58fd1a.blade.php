@@ -1,0 +1,1 @@
+<style> .fi-header-heading { display: none !important; } </style>
