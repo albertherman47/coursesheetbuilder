@@ -15,7 +15,7 @@ class CurriculaTable
     {
         return $table
             ->columns([
-                TextColumn::make('program.name_hu') 
+                TextColumn::make('program.name_hu')
                     ->label('Szak')
                     ->searchable()
                     ->sortable(),
@@ -26,7 +26,7 @@ class CurriculaTable
                 TextColumn::make('name')
                     ->label('Tanterv neve')
                     ->searchable(),
-                
+
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -83,9 +83,7 @@ class CurriculaTable
                 EditAction::make(),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                DeleteBulkAction::make(),
             ]);
     }
 }

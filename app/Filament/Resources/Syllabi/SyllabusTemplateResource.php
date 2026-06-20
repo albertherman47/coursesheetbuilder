@@ -34,7 +34,7 @@ class SyllabusTemplateResource extends Resource
 
     public static function shouldRegisterNavigation(): bool
     {
-        /** @var \App\Models\User $user */
+
         $user = auth()->user();
         return $user->hasRole('admin') || (!$user->isTeacher() && !$user->isAdministrativeStaff());
     }
@@ -103,11 +103,8 @@ class SyllabusTemplateResource extends Resource
                 EditAction::make(),
                 DeleteAction::make(),
             ])
-            ->bulkActions([
-
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+            ->toolbarActions([
+                DeleteBulkAction::make(),
             ]);
     }
 

@@ -25,6 +25,15 @@ class DepartmentPolicy
     }
 
     /**
+     * Determine if user can view any departments
+     */
+    public function viewAny(User $user): bool
+    {
+        return $user->hasPermissionTo('manage_own_department') ||
+               $user->hasPermissionTo('manage_all_departments');
+    }
+
+    /**
      * Determine if user can view department
      */
     public function view(User $user, Department $department): bool
@@ -34,11 +43,19 @@ class DepartmentPolicy
     }
 
     /**
+     * Determine if user can create department
+     */
+    public function create(User $user): bool
+    {
+        return $user->hasPermissionTo('manage_all_departments');
+    }
+
+    /**
      * Determine if user can update department
      */
     public function update(User $user, Department $department): bool
     {
-        return $user->hasPermissionTo('manage_own_department') && $user->getDepartmentId() === $department->id ||
+        return ($user->hasPermissionTo('manage_own_department') && $user->getDepartmentId() === $department->id) ||
                $user->hasPermissionTo('manage_all_departments');
     }
 

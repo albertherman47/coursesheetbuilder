@@ -17,22 +17,19 @@ class TeachersTable
             ->columns([
                 TextColumn::make('user.name')
                     ->searchable(),
-                TextColumn::make('department.id')
+                TextColumn::make('department.name_hu')
                     ->searchable(),
                 TextColumn::make('academic_degree')
-                    ->badge(),
+                    ,
                 TextColumn::make('position')
-                    ->badge(),
+                    ,
                 TextColumn::make('first_name')
                     ->searchable(),
                 TextColumn::make('last_name')
                     ->searchable(),
                 TextColumn::make('neptun_code')
                     ->searchable(),
-                TextColumn::make('phone')
-                    ->searchable(),
-                TextColumn::make('office_location')
-                    ->searchable(),
+
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -50,9 +47,7 @@ class TeachersTable
                 EditAction::make(),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                DeleteBulkAction::make(),
             ]);
     }
 }

@@ -22,8 +22,28 @@ class SyllabusDocxGenerator
         $this->assignment = $assignment;
         $this->resolver = new PlaceholderResolver($content, $assignment);
 
-        // Load the template
-        $templatePath = base_path('template_fisa_disciplinei_2025.docx');
+        $templateModel = $content->template;
+        if (!$templateModel) {
+            throw new \Exception('Template not found for this syllabus');
+        }
+
+        $docxPath = $templateModel->docx_template_path ?: 'template_fisa_disciplinei_2025.docx';
+        // Resolve absolute or relative path
+        $templatePath = (str_starts_with($docxPath, '/') || str_starts_with($docxPath, '\\') || (strlen($docxPath) > 2 && $docxPath[1] === ':'))
+            ? $docxPath
+            : base_path($docxPath);
+
+        if (!file_exists($templatePath)) {
+            // Check storage fallback
+            $storagePath = storage_path('app/' . $docxPath);
+            if (file_exists($storagePath)) {
+                $templatePath = $storagePath;
+            } else {
+                // Final fallback
+                $templatePath = base_path('template_fisa_disciplinei_2025.docx');
+            }
+        }
+
         if (!file_exists($templatePath)) {
             throw new \Exception('Syllabus template not found at: ' . $templatePath);
         }

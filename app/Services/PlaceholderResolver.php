@@ -140,7 +140,7 @@ class PlaceholderResolver
     private function resolveFromRelationship(string $sourceTable, string $sourceColumn): mixed
     {
         return match($sourceTable) {
-            'academic_years' => $this->assignment->academicYear?->$sourceColumn,
+            'academic_years' => $this->course?->curriculum?->academicYear?->$sourceColumn,
             'departments' => $this->course?->curriculum?->program?->department?->$sourceColumn,
             'programs' => $this->course?->curriculum?->program?->$sourceColumn,
             'curriculum_courses' => $this->course?->$sourceColumn,

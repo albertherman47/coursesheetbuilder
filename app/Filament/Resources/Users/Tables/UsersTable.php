@@ -22,19 +22,21 @@ class UsersTable
                 TextColumn::make('email')
                     ->label('Email')
                     ->searchable(),
-                BadgeColumn::make('roles.name')
+                TextColumn::make('roles.name')
                     ->label('Roles')
+                    ->badge()
                     ->formatStateUsing(fn ($state) => match($state) {
                         'super_admin' => 'Super Admin',
                         'department_admin' => 'Department Admin',
                         'teacher' => 'Teacher',
                         default => ucfirst(str_replace('_', ' ', $state))
                     })
-                    ->colors([
-                        'primary' => fn ($state) => $state === 'super_admin',
-                        'warning' => fn ($state) => $state === 'department_admin',
-                        'success' => fn ($state) => $state === 'teacher',
-                    ]),
+                    ->color(fn (string $state): string => match($state) {
+                        'super_admin' => 'danger',
+                        'department_admin' => 'warning',
+                        'teacher' => 'primary',
+                        default => 'gray',
+                    }),
                 TextColumn::make('email_verified_at')
                     ->label('Email Verified')
                     ->dateTime()
@@ -58,9 +60,7 @@ class UsersTable
                 EditAction::make(),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                DeleteBulkAction::make(),
             ]);
     }
 }

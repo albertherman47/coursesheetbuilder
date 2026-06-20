@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('CourseSheet Builder')
+            ->brandName('Tantárgyi Adatlap Generáló Rendszer')
             ->colors([
                 'primary' => Color::hex('#015301ff'),
                 'gray' => Color::Gray,
